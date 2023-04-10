@@ -1,0 +1,38 @@
+export const resources: any = {
+  en: {
+    translation: {
+      OVERVIEW: "Overview",
+      AGECY: "Agecy",
+      PRODUCT: "Product",
+      STAFF: "Staff",
+      ROOM_CATEGORY: "Category",
+      CONTACT: "Contact",
+      ROOM_LIST: "Room list",
+      BOOKING_LIST: "Booking list",
+      NEW_PRODUCT: "New product",
+      NEW_STAFF: "New staff",
+      NEW_ROOM: "New room",
+      INVENTORY: "Inventory",
+      CUSTOMER: "Customer",
+      BASE_SETTING: "Base setting",
+    },
+  },
+  vi: {
+    translation: {
+      OVERVIEW: "Tổng quan",
+      AGECY: "Chi nhánh",
+      PRODUCT: "Sản phẩm",
+      STAFF: "Nhân viên",
+      ROOM_CATEGORY: "Loại phòng",
+      CONTACT: "Liên hệ",
+      ROOM_LIST: "Danh sách phòng",
+      BOOKING_LIST: "Danh sách đặc phòng",
+      NEW_PRODUCT: "Thêm cơ sở",
+      NEW_STAFF: "Nhân viên mới",
+      NEW_ROOM: "Thêm phòng mới",
+      INVENTORY: "Tồn kho",
+      CUSTOMER: "Khách hàng",
+      BASE_SETTING: "Thiết lập cơ bản",
+    },
+  },
+};
