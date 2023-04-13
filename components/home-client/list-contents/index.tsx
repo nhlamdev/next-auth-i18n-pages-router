@@ -5,7 +5,10 @@ export const HomeListContents = () => {
     return (
         <Stack
             sx={{
-                flex: 9,
+                flex: {
+                    xs: 1,
+                    md: 10,
+                },
                 padding: '10px',
                 gap: '20px',
                 justifyContent: 'center',

@@ -26,7 +26,7 @@ export const ClientHomeLoginControl = () => {
                     horizontal: 'center',
                 }}
             >
-                <Stack sx={{ gap: '10px' }}>
+                <Stack sx={{ gap: '10px', width: '200px' }}>
                     <Stack
                         direction="row"
                         sx={{
@@ -45,8 +45,8 @@ export const ClientHomeLoginControl = () => {
                         onClick={() => signIn('google')}
                     >
                         <Image src="/share/google.svg" width={25} height={25} alt="photo" />
-                        <Typography sx={{ fontSize: '14px', transition: 'all ease .5s' }}>
-                            Login With Google
+                        <Typography sx={{ fontSize: '12px', transition: 'all ease .5s' }}>
+                            Login && Google
                         </Typography>
                     </Stack>
                     <Stack
@@ -68,7 +68,7 @@ export const ClientHomeLoginControl = () => {
                     >
                         <Image src="/share/github.svg" width={25} height={25} alt="photo" />
                         <Typography sx={{ fontSize: '14px', transition: 'all ease .5s' }}>
-                            Login With Github
+                            Login && Github
                         </Typography>
                     </Stack>
                     <Stack
@@ -90,7 +90,7 @@ export const ClientHomeLoginControl = () => {
                     >
                         <Image src="/share/discord.svg" width={25} height={25} alt="photo" />
                         <Typography sx={{ fontSize: '14px', transition: 'all ease .5s' }}>
-                            Login With Discord
+                            Login && Discord
                         </Typography>
                     </Stack>
                 </Stack>

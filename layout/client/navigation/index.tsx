@@ -22,8 +22,8 @@ export const NavigationClientComponent = () => {
                 height: '50px',
             }}
         >
-            <Stack>
-                <Typography sx={{ fontSize: '14px' }}>Home</Typography>
+            <Stack sx={{ cursor: 'pointer' }}>
+                <Typography sx={{ fontSize: '16px', fontWeight: 700 }}>Home</Typography>
             </Stack>
             <Stack flex={1}></Stack>
 

@@ -1,21 +1,34 @@
-import { Popover, Stack, Typography } from '@mui/material';
+import { Popover, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
 export const HomeClineProfileControl = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+    const matches = useMediaQuery('(min-width:900px)');
     const { data: session, status } = useSession();
     return (
         <>
-            <Stack onClick={(e) => setAnchorEl(e.currentTarget)}>
-                <Image
-                    src={session?.user?.image ? session?.user?.image : '/avatar.png'}
-                    width={40}
-                    height={40}
-                    alt="photo"
-                    style={{ borderRadius: '25px' }}
-                />
+            <Stack
+                direction="row"
+                sx={{ alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+                onClick={(e) => setAnchorEl(e.currentTarget)}
+            >
+                <Stack>
+                    <Typography sx={{ fontSize: matches ? '14px' : '10px', fontWeight: 600 }}>
+                        {session?.user?.name}
+                    </Typography>
+                </Stack>
+                <Stack>
+                    <Image
+                        src={session?.user?.image ? session?.user?.image : '/avatar.png'}
+                        width={40}
+                        height={40}
+                        alt="photo"
+                        style={{ borderRadius: '25px' }}
+                    />
+                </Stack>
             </Stack>
+
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
@@ -29,7 +42,7 @@ export const HomeClineProfileControl = () => {
                     horizontal: 'center',
                 }}
             >
-                <Stack sx={{ gap: '10px' }}>
+                <Stack sx={{ width: '200px' }}>
                     <Stack
                         direction="row"
                         sx={{
@@ -46,7 +59,13 @@ export const HomeClineProfileControl = () => {
                         }}
                         alignItems="center"
                     >
-                        <Typography sx={{ fontSize: '14px', transition: 'all ease .5s' }}>
+                        <Typography
+                            sx={{
+                                fontSize: '14px',
+                                transition: 'all ease .5s',
+                                alignItems: 'center',
+                            }}
+                        >
                             Tạo bài Viết
                         </Typography>
                     </Stack>

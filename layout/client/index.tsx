@@ -1,17 +1,17 @@
-import { Stack } from "@mui/material";
-import { ReactElement } from "react";
-import { NavigationClientComponent } from "./navigation";
+import { Stack } from '@mui/material';
+import { ReactElement } from 'react';
+import { NavigationClientComponent } from './navigation';
 
 interface ClientLayoutComponentProps {
-  children: ReactElement;
+    children: ReactElement;
 }
 
 export const ClientLayoutComponent = (props: ClientLayoutComponentProps) => {
-  const { children } = props;
-  return (
-    <Stack>
-      <NavigationClientComponent />
-      {children}
-    </Stack>
-  );
+    const { children } = props;
+    return (
+        <Stack sx={{ width: '100%' }}>
+            <NavigationClientComponent />
+            {children}
+        </Stack>
+    );
 };
