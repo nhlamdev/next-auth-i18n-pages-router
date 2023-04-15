@@ -66,6 +66,32 @@ export const HomeClineProfileControl = () => {
                                 alignItems: 'center',
                             }}
                         >
+                            Bài viết của bạn.
+                        </Typography>
+                    </Stack>{' '}
+                    <Stack
+                        direction="row"
+                        sx={{
+                            gap: '10px',
+                            padding: '10px 20px',
+                            cursor: 'pointer',
+                            transition: 'all ease .5s',
+                            '&:hover ': {
+                                backgroundColor: '#402E32',
+                                '& > p': {
+                                    color: '#fff',
+                                },
+                            },
+                        }}
+                        alignItems="center"
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: '14px',
+                                transition: 'all ease .5s',
+                                alignItems: 'center',
+                            }}
+                        >
                             Tạo bài Viết
                         </Typography>
                     </Stack>
