@@ -5,7 +5,6 @@ import { useSession } from 'next-auth/react';
 
 export const NavigationClientComponent = () => {
     const { data: session, status } = useSession();
-    console.log('status : ', status);
 
     return (
         <Stack
@@ -22,10 +21,23 @@ export const NavigationClientComponent = () => {
                 height: '50px',
             }}
         >
-            <Stack sx={{ cursor: 'pointer' }}>
-                <Typography sx={{ fontSize: '16px', fontWeight: 700 }}>Home</Typography>
+            <Stack direction="row" sx={{ flex: 1, gap: '50px', alignItems: 'center' }}>
+                <Stack sx={{ cursor: 'pointer' }}>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 700 }}>Home</Typography>
+                </Stack>
+                <Stack direction="row" sx={{ gap: '10px' }}>
+                    <Stack sx={{ cursor: 'pointer' }}>
+                        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#514538' }}>
+                            Bài viết
+                        </Typography>
+                    </Stack>
+                    <Stack sx={{ cursor: 'pointer' }}>
+                        <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#514538' }}>
+                            Chuỗi
+                        </Typography>
+                    </Stack>
+                </Stack>
             </Stack>
-            <Stack flex={1}></Stack>
 
             {status === 'loading' && <Stack>loading</Stack>}
             {status === 'authenticated' && <HomeClineProfileControl />}

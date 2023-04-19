@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { Checkbox, Stack, Typography } from '@mui/material';
 import Head from 'next/head';
 import { ManagerContentTagsComponent } from '@/components/new-content/tags-box';
-import { ManagerCategoryBoxComponent } from '@/components/new-content/categoris-box';
+import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 
@@ -21,7 +21,7 @@ const ContentNewPage: NextPage & {
         title: string;
         summary: string;
         body: string;
-        category: string;
+        series: string;
         complete: boolean;
         public: boolean;
         tags: string[];
@@ -30,7 +30,7 @@ const ContentNewPage: NextPage & {
         body: '',
         summary: '',
         title: '',
-        category: '',
+        series: '',
         complete: false,
         public: false,
         image: '',
@@ -181,7 +181,7 @@ const ContentNewPage: NextPage & {
                         }
                     }}
                 />
-                <ManagerCategoryBoxComponent />
+                <ManagerSeriesBoxComponent />
             </Stack>
         </Stack>
     );
