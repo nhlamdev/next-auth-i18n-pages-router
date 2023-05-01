@@ -87,7 +87,11 @@ export const CreateSeiresDialog = (props: CreateSeiresDialogProps) => {
                         <Stack>
                             <Typography sx={{ fontSize: '20px' }}>Tạo Mới Series</Typography>
                             <AiFillCloseCircle
-                                onClick={() => setOpen(false)}
+                                onClick={() => {
+                                    setOpen(false);
+                                    setTitle('');
+                                    setSummary('');
+                                }}
                                 style={{
                                     fontSize: '24px',
                                     position: 'absolute',
@@ -121,8 +125,12 @@ export const CreateSeiresDialog = (props: CreateSeiresDialogProps) => {
                         <Button
                             onClick={() => {
                                 if (title && summary) {
-                                    ApiCaller.content.createSeries(title, summary);
-                                    // .then((res) => addSeries(res.data));
+                                    ApiCaller.content.createSeries(title, summary).then((res) => {
+                                        addSeries(res.data);
+                                        setTitle('');
+                                        setSummary('');
+                                        setOpen(false);
+                                    });
                                 }
                             }}
                             sx={{ width: '40%' }}

@@ -16,7 +16,7 @@ export interface ListContentInSeriesProps {
 export const ListContentInSeries = (props: ListContentInSeriesProps) => {
     const { series } = props;
     return (
-        <Stack sx={{ gap: '10px', width: '100%' }} alignItems="center">
+        <Stack sx={{ gap: '10px', width: '100%', flex: 1 }} alignItems="center">
             {series.map((v) => (
                 <Stack
                     key={'sereis-item-' + v._id}
