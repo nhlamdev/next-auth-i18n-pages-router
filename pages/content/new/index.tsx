@@ -6,6 +6,7 @@ import { ManagerContentTagsComponent } from '@/components/new-content/tags-box';
 // import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
 
 const TextEditor = dynamic(import('@/components/text-editor'), {
     ssr: false,
@@ -159,7 +160,6 @@ const ContentNewPage: NextPage & {
                         alt="image"
                     />
                 )}
-
                 <input
                     ref={fileRef}
                     type="file"
@@ -170,7 +170,6 @@ const ContentNewPage: NextPage & {
                         }
                     }}
                 />
-
                 <ManagerContentTagsComponent
                     values={data.tags}
                     change={(v: string) => {
@@ -181,7 +180,9 @@ const ContentNewPage: NextPage & {
                         }
                     }}
                 />
-                {/* <ManagerSeriesBoxComponent /> */}
+
+                {/* <Stack></Stack> */}
+                <ManagerSeriesBoxComponent />
             </Stack>
         </Stack>
     );

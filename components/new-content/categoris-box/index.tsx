@@ -11,8 +11,10 @@ export const ManagerSeriesBoxComponent = () => {
     const [debounced] = useDebouncedValue(filterText, 300, { leading: true });
     const [series, setSeries] = useState<
         {
+            contents: any[];
             created_at: string;
-            name: string;
+            summary: string;
+            title: string;
             updated_at: string;
             _id: string;
         }[]
@@ -40,7 +42,7 @@ export const ManagerSeriesBoxComponent = () => {
                 width: '100%',
             }}
         >
-            {/* <span>Danh sách thể loại</span>
+            <span>Danh sách thể loại</span>
             <input
                 style={{
                     padding: '10px 20px',
@@ -62,7 +64,7 @@ export const ManagerSeriesBoxComponent = () => {
                 }}
             >
                 {series
-                    .filter((s) => s.name.includes(debounced))
+                    .filter((s) => s.title.includes(debounced))
                     .map((v) => (
                         <TagsBoxItemComponent
                             key={v._id}
@@ -76,7 +78,7 @@ export const ManagerSeriesBoxComponent = () => {
                     ))}
             </div>
 
-            <div
+            {/* <div
                 style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -93,21 +95,21 @@ export const ManagerSeriesBoxComponent = () => {
                         padding: '10px',
                         borderBottom: '1px solid black',
                     }}
-                    value={value}
+                    // value={value}
                     placeholder="Nhập một thể loại mới"
-                    onChange={(e) => {
-                        const { value } = e.target;
-                        setValue(value);
-                    }}
+                    // onChange={(e) => {
+                    //     const { value } = e.target;
+                    //     setValue(value);
+                    // }}
                 />
                 <IoMdAddCircle
                     style={{ fontSize: 30, cursor: 'pointer' }}
                     onClick={() => {
-                        if (value) {
-                            ApiCaller.content
-                                .createSeries(title, summary)
-                                .then((res) => setSeries([...series, res.data]));
-                        }
+                        // if (value) {
+                        //     ApiCaller.content
+                        //         .createSeries(title, summary)
+                        //         .then((res) => setSeries([...series, res.data]));
+                        // }
                     }}
                 />
             </div> */}

@@ -2,7 +2,14 @@ import { BsTrashFill } from 'react-icons/bs';
 import { Stack } from '@mui/material';
 
 interface TagsBoxItemComponentProps {
-    value: { created_at: string; name: string; updated_at: string; _id: string };
+    value: {
+        contents: any[];
+        created_at: string;
+        summary: string;
+        title: string;
+        updated_at: string;
+        _id: string;
+    };
     ondelete: () => void;
 }
 
@@ -27,7 +34,7 @@ export const TagsBoxItemComponent = (props: TagsBoxItemComponentProps) => {
                 },
             }}
         >
-            <span style={{ flex: 1 }}>{value.name}</span>{' '}
+            <span style={{ flex: 1 }}>{value.title}</span>
             <BsTrashFill color="#ff304f" onClick={() => ondelete()} />
         </Stack>
     );
