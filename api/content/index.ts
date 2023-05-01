@@ -19,8 +19,8 @@ export class ContentApi {
     public getAllTag() {}
 
     public createContent() {}
-    public createSeries(value: string) {
-        return this.axiosInstance.post(`/services/series/`, { name: value });
+    public createSeries(title: string, summary: string) {
+        return this.axiosInstance.post(`/services/series/`, { title: title, summary: summary });
     }
 
     public deleteSeries(id: string) {

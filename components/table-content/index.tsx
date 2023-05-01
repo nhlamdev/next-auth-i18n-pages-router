@@ -1,7 +1,17 @@
-import { Stack } from "@mui/material";
-import {} from "./head";
-import {} from "./row";
+import { Stack } from '@mui/material';
+import { ContentTableHeadComponent } from './head';
+import { TableContentRowComponent } from './row';
 
-export const TableContentComponent = () => {
-  return <Stack></Stack>;
+interface TableContentComponentProps {
+    caseView: 'draft' | 'public';
+}
+
+export const TableContentComponent = (props: TableContentComponentProps) => {
+    const { caseView } = props;
+    return (
+        <Stack sx={{ width: '80%', padding: '10px' }}>
+            <ContentTableHeadComponent />
+            <TableContentRowComponent />
+        </Stack>
+    );
 };

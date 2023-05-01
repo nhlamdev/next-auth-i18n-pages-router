@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { Checkbox, Stack, Typography } from '@mui/material';
 import Head from 'next/head';
 import { ManagerContentTagsComponent } from '@/components/new-content/tags-box';
-import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
+// import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 
@@ -181,7 +181,7 @@ const ContentNewPage: NextPage & {
                         }
                     }}
                 />
-                <ManagerSeriesBoxComponent />
+                {/* <ManagerSeriesBoxComponent /> */}
             </Stack>
         </Stack>
     );

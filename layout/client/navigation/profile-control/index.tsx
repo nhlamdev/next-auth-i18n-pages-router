@@ -2,8 +2,11 @@ import { Popover, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Urls } from './urls.mocks';
 export const HomeClineProfileControl = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+    const router = useRouter();
     const matches = useMediaQuery('(min-width:900px)');
     const { data: session, status } = useSession();
     return (
@@ -43,84 +46,40 @@ export const HomeClineProfileControl = () => {
                 }}
             >
                 <Stack sx={{ width: '200px' }}>
-                    <Stack
-                        direction="row"
-                        sx={{
-                            gap: '10px',
-                            padding: '10px 20px',
-                            cursor: 'pointer',
-                            transition: 'all ease .5s',
-                            '&:hover ': {
-                                backgroundColor: '#402E32',
-                                '& > p': {
-                                    color: '#fff',
-                                },
-                            },
-                        }}
-                        alignItems="center"
-                    >
-                        <Typography
-                            sx={{
-                                fontSize: '12px',
-                                transition: 'all ease .5s',
-                                alignItems: 'center',
-                            }}
-                        >
-                            Trạng thái
-                        </Typography>
-                    </Stack>{' '}
-                    <Stack
-                        direction="row"
-                        sx={{
-                            gap: '10px',
-                            padding: '10px 20px',
-                            cursor: 'pointer',
-                            transition: 'all ease .5s',
-                            '&:hover ': {
-                                backgroundColor: '#402E32',
-                                '& > p': {
-                                    color: '#fff',
-                                },
-                            },
-                        }}
-                        alignItems="center"
-                    >
-                        <Typography
-                            sx={{
-                                fontSize: '12px',
-                                transition: 'all ease .5s',
-                                alignItems: 'center',
-                            }}
-                        >
-                            Quản lý bài viết.
-                        </Typography>
-                    </Stack>
-                    <Stack
-                        direction="row"
-                        sx={{
-                            gap: '10px',
-                            padding: '10px 20px',
-                            cursor: 'pointer',
-                            transition: 'all ease .5s',
-                            '&:hover ': {
-                                backgroundColor: '#402E32',
-                                '& > p': {
-                                    color: '#fff',
-                                },
-                            },
-                        }}
-                        alignItems="center"
-                    >
-                        <Typography
-                            sx={{
-                                fontSize: '12px',
-                                transition: 'all ease .5s',
-                                alignItems: 'center',
-                            }}
-                        >
-                            Tạo bài Viết
-                        </Typography>
-                    </Stack>
+                    {Urls.map((value, index) => {
+                        return (
+                            <Stack
+                                key={`${value.direct}-${index}`}
+                                sx={{
+                                    gap: '10px',
+                                    padding: '10px 20px',
+                                    cursor: 'pointer',
+                                    transition: 'all ease .5s',
+                                    '&:hover ': {
+                                        backgroundColor: '#402E32',
+                                        '& > p': {
+                                            color: '#fff',
+                                        },
+                                    },
+                                }}
+                                direction="row"
+                                alignItems="center"
+                                onClick={() => {
+                                    router.replace(value.direct);
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: '12px',
+                                        transition: 'all ease .5s',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    {value.name}
+                                </Typography>
+                            </Stack>
+                        );
+                    })}
                     <Stack
                         direction="row"
                         alignItems="center"
@@ -139,7 +98,7 @@ export const HomeClineProfileControl = () => {
                         onClick={() => signOut()}
                     >
                         <Typography sx={{ fontSize: '12px', transition: 'all ease .5s' }}>
-                            Logout
+                            Đăng xuất
                         </Typography>
                     </Stack>
                 </Stack>

@@ -1,4 +1,4 @@
-import clientPromise from '@/mongodb';
+import clientPromise from '@/database';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import NextAuth, { AuthOptions } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';

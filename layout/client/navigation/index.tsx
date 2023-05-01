@@ -2,6 +2,7 @@ import { Popover, Stack, Typography } from '@mui/material';
 import { ClientHomeLoginControl } from './login-control';
 import { HomeClineProfileControl } from './profile-control';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export const NavigationClientComponent = () => {
     const { data: session, status } = useSession();
@@ -26,16 +27,16 @@ export const NavigationClientComponent = () => {
                     <Typography sx={{ fontSize: '16px', fontWeight: 700 }}>Home</Typography>
                 </Stack>
                 <Stack direction="row" sx={{ gap: '10px' }}>
-                    <Stack sx={{ cursor: 'pointer' }}>
+                    <Link href="/" style={{ cursor: 'pointer' }}>
                         <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#514538' }}>
                             Bài viết
                         </Typography>
-                    </Stack>
-                    <Stack sx={{ cursor: 'pointer' }}>
+                    </Link>
+                    <Link href="/series" style={{ cursor: 'pointer' }}>
                         <Typography sx={{ fontSize: '14px', fontWeight: 600, color: '#514538' }}>
                             Chuỗi
                         </Typography>
-                    </Stack>
+                    </Link>
                 </Stack>
             </Stack>
 

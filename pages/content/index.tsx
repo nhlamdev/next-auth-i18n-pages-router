@@ -7,7 +7,7 @@ import { ClientStatusContent } from '@/components/client-status';
 const ContentsPage: NextPage & {
     layout?: string;
 } = () => {
-    const [caseView, setCase] = useState<'draft' | 'public'>();
+    const [caseView, setCase] = useState<'draft' | 'public'>('public');
     return (
         <Stack>
             <Head>
@@ -25,6 +25,26 @@ const ContentsPage: NextPage & {
                         borderRadius: '5px',
                     }}
                 >
+                    <Stack
+                        sx={{
+                            '&:hover ': {
+                                backgroundColor: '#FFEBCC',
+                            },
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: '14px',
+                                fontWeight: 600,
+                                cursor: 'pointer',
+                                padding: '10px 20px',
+                                transition: 'all ease .3s',
+                                color: '#333',
+                            }}
+                        >
+                            Công Khai
+                        </Typography>
+                    </Stack>
                     <Stack>
                         <Typography
                             sx={{
@@ -36,60 +56,17 @@ const ContentsPage: NextPage & {
                                 color: '#333',
                                 '&:hover ': {
                                     backgroundColor: '#FFEBCC',
+                                    color: '#333',
                                 },
                             }}
                         >
-                            Trạng thái
+                            Bản nháp
                         </Typography>
                     </Stack>
-                    {/* ----- */}
-                    <Stack>
-                        <Typography>Bài viết</Typography>
-                    </Stack>
-                    <Stack>
-                        <Stack
-                            sx={{
-                                paddingLeft: '20px',
-                                '&:hover ': {
-                                    backgroundColor: '#FFEBCC',
-                                },
-                            }}
-                        >
-                            <Typography
-                                sx={{
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    cursor: 'pointer',
-                                    padding: '10px 20px',
-                                    transition: 'all ease .3s',
-                                    color: '#333',
-                                }}
-                            >
-                                Công Khai
-                            </Typography>
-                        </Stack>
-                        <Stack>
-                            <Typography
-                                sx={{
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    cursor: 'pointer',
-                                    padding: '10px 20px',
-                                    transition: 'all ease .3s',
-                                    color: '#333',
-                                    '&:hover ': {
-                                        backgroundColor: '#FFEBCC',
-                                        color: '#333',
-                                    },
-                                }}
-                            >
-                                Bản nháp
-                            </Typography>
-                        </Stack>
-                    </Stack>
                 </Stack>
-
-                <TableContentComponent />
+                <Stack sx={{ flex: 1 }} alignItems="center">
+                    <TableContentComponent caseView={caseView} />
+                </Stack>
             </Stack>
         </Stack>
     );

@@ -5,7 +5,8 @@ import { useDebouncedValue } from '@mantine/hooks';
 import ApiCaller from '@/api';
 
 export const ManagerSeriesBoxComponent = () => {
-    const [value, setValue] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
+    const [summary, setSummary] = useState<string>('');
     const [filterText, setFilterText] = useState<string>('');
     const [debounced] = useDebouncedValue(filterText, 300, { leading: true });
     const [series, setSeries] = useState<
@@ -39,7 +40,7 @@ export const ManagerSeriesBoxComponent = () => {
                 width: '100%',
             }}
         >
-            <span>Danh sách thể loại</span>
+            {/* <span>Danh sách thể loại</span>
             <input
                 style={{
                     padding: '10px 20px',
@@ -104,12 +105,12 @@ export const ManagerSeriesBoxComponent = () => {
                     onClick={() => {
                         if (value) {
                             ApiCaller.content
-                                .createSeries(value)
+                                .createSeries(title, summary)
                                 .then((res) => setSeries([...series, res.data]));
                         }
                     }}
                 />
-            </div>
+            </div> */}
         </div>
     );
 };
