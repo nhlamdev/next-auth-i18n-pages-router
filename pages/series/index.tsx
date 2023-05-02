@@ -1,9 +1,10 @@
 import ApiCaller from '@/api';
 import { ListContentInSeries } from '@/components/content-series';
 import { CreateSeiresDialog } from '@/components/content-series/dialog';
-import { Pagination, Stack } from '@mui/material';
+import { Pagination, Stack, Typography } from '@mui/material';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 interface SeriesItem {
@@ -19,12 +20,25 @@ const ContentSeriesPage: NextPage & {
     layout?: string;
 } = () => {
     const [series, setSeries] = useState<SeriesItem[]>([]);
+    const [max, setMax] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
 
-    console.log('series : ', series);
+    const { page } = router.query;
+    const current =
+        page && !Number.isNaN(Number(page)) && Number.isInteger(Number(page))
+            ? Number(page) - 1
+            : 0;
 
     useEffect(() => {
-        ApiCaller.content.getAllSeries(0, 10).then((res) => setSeries(res.data));
-    }, []);
+        setLoading(true);
+        ApiCaller.content.getAllSeries(current, 10).then((res) => {
+            const { data, max } = res.data;
+            setSeries(data);
+            setMax(max);
+            setLoading(false);
+        });
+    }, [current]);
 
     return (
         <Stack
@@ -38,18 +52,27 @@ const ContentSeriesPage: NextPage & {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            <ListContentInSeries series={series} />
-            <Pagination
-                onChange={(e, page) => {
-                    console.log(page);
-                }}
-                count={20}
-                defaultPage={1}
-                siblingCount={1}
-                variant="outlined"
-            />
-            <CreateSeiresDialog addSeries={(item: SeriesItem) => setSeries([...series, item])} />
+            {!loading ? (
+                <>
+                    <ListContentInSeries series={series} />
+                    <Pagination
+                        onChange={(e, page) => {
+                            router.replace(`/series?page=${page}`);
+                        }}
+                        count={Math.round(max / 10) + 1}
+                        defaultPage={current + 1}
+                        siblingCount={1}
+                        variant="outlined"
+                    />
+                    <CreateSeiresDialog
+                        addSeries={(item: SeriesItem) => setSeries([...series, item])}
+                    />
+                </>
+            ) : (
+                <Stack>
+                    <Typography>Loading</Typography>
+                </Stack>
+            )}
         </Stack>
     );
 };
