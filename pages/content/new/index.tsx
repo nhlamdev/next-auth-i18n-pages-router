@@ -1,12 +1,13 @@
+import { ManagerContentTagsComponent } from '@/components/new-content/tags-box';
+import { Checkbox, Stack } from '@mui/material';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { Checkbox, Stack, Typography } from '@mui/material';
 import Head from 'next/head';
-import { ManagerContentTagsComponent } from '@/components/new-content/tags-box';
 // import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
-import { useEffect, useState, useRef } from 'react';
-import Image from 'next/image';
+import ApiInstance from '@/api';
 import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 
 const TextEditor = dynamic(import('@/components/text-editor'), {
     ssr: false,
@@ -15,8 +16,6 @@ const TextEditor = dynamic(import('@/components/text-editor'), {
 const ContentNewPage: NextPage & {
     layout?: string;
 } = () => {
-    const [categories, setCategories] = useState([]);
-    const [image, setImage] = useState<File | null>(null);
     const fileRef = useRef<HTMLInputElement | null>(null);
     const [data, setData] = useState<{
         title: string;
@@ -26,7 +25,7 @@ const ContentNewPage: NextPage & {
         complete: boolean;
         public: boolean;
         tags: string[];
-        image: string;
+        image: File | null;
     }>({
         body: '',
         summary: '',
@@ -34,11 +33,17 @@ const ContentNewPage: NextPage & {
         series: '',
         complete: false,
         public: false,
-        image: '',
+        image: null,
         tags: [],
     });
 
     useEffect(() => {}, []);
+
+    const submit = () => {
+        if (data.image) {
+            ApiInstance.content.createContent(data);
+        }
+    };
 
     return (
         <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '20px', padding: '10px 20px' }}>
@@ -76,7 +81,7 @@ const ContentNewPage: NextPage & {
                         resize: 'none',
                         height: '150px',
                     }}
-                    onChange={(e) => setData({ ...data, ['title']: e.target.value })}
+                    onChange={(e) => setData({ ...data, ['summary']: e.target.value })}
                 />
 
                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -98,7 +103,7 @@ const ContentNewPage: NextPage & {
                             borderRadius: '5px',
                             cursor: 'pointer',
                         }}
-                        onClick={() => console.log(data)}
+                        onClick={() => submit()}
                     >
                         <span style={{ fontSize: '14px', fontWeight: 600 }}>Hoàn thành</span>
                     </Stack>
@@ -127,7 +132,7 @@ const ContentNewPage: NextPage & {
                 }}
                 alignItems="center"
             >
-                {image ? (
+                {data.image ? (
                     <Image
                         onClick={() => {
                             if (fileRef && fileRef.current) {
@@ -138,7 +143,7 @@ const ContentNewPage: NextPage & {
                             cursor: 'pointer',
                             borderRadius: '10px',
                         }}
-                        src={URL.createObjectURL(image)}
+                        src={URL.createObjectURL(data.image)}
                         width={300}
                         height={200}
                         alt="image"
@@ -166,7 +171,7 @@ const ContentNewPage: NextPage & {
                     hidden
                     onChange={(e) => {
                         if (e.target.files) {
-                            setImage(e.target.files[0]);
+                            setData({ ...data, ['image']: e.target.files[0] });
                         }
                     }}
                 />
@@ -182,7 +187,16 @@ const ContentNewPage: NextPage & {
                 />
 
                 {/* <Stack></Stack> */}
-                <ManagerSeriesBoxComponent />
+                <ManagerSeriesBoxComponent
+                    value={data.series}
+                    change={(v: string) => {
+                        if (data.series === v) {
+                            setData({ ...data, ['series']: '' });
+                        } else {
+                            setData({ ...data, ['series']: v });
+                        }
+                    }}
+                />
             </Stack>
         </Stack>
     );

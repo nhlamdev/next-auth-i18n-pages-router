@@ -2,7 +2,7 @@ import ApiCaller from '@/api';
 import { ListContentInSeries } from '@/components/content-series';
 import { CreateSeiresDialog } from '@/components/content-series/dialog';
 import { Pagination, Stack, Typography } from '@mui/material';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -75,6 +75,14 @@ const ContentSeriesPage: NextPage & {
             )}
         </Stack>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    // const { data, max } = await ApiCaller.content.getAllSeries(current, 10);
+    console.log(context.query.page);
+    return {
+        props: {}, // will be passed to the page component as props
+    };
 };
 
 ContentSeriesPage.layout = 'client';

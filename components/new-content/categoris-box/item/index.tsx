@@ -2,7 +2,7 @@ import { BsTrashFill } from 'react-icons/bs';
 import { Stack } from '@mui/material';
 
 interface TagsBoxItemComponentProps {
-    value: {
+    item: {
         contents: any[];
         created_at: string;
         summary: string;
@@ -10,11 +10,13 @@ interface TagsBoxItemComponentProps {
         updated_at: string;
         _id: string;
     };
+    value: string;
+    change: (v: string) => void;
     ondelete: () => void;
 }
 
 export const TagsBoxItemComponent = (props: TagsBoxItemComponentProps) => {
-    const { value, ondelete } = props;
+    const { value, ondelete, change, item } = props;
     return (
         <Stack
             sx={{
@@ -25,7 +27,7 @@ export const TagsBoxItemComponent = (props: TagsBoxItemComponentProps) => {
                 scrollSnapAlign: 'start',
                 transition: 'all ease 0.3s',
                 margin: '5px',
-                border: '1px solid #3f3b3b',
+                border: value === item._id ? '1px solid #3f3b3b' : '1px solid #3fc',
                 borderRadius: '5px',
                 '&:hover ': {
                     boxShadow:
@@ -33,8 +35,9 @@ export const TagsBoxItemComponent = (props: TagsBoxItemComponentProps) => {
                     border: '1px solid transparent',
                 },
             }}
+            onClick={() => change(item._id)}
         >
-            <span style={{ flex: 1 }}>{value.title}</span>
+            <span style={{ flex: 1 }}>{item.title}</span>
             <BsTrashFill color="#ff304f" onClick={() => ondelete()} />
         </Stack>
     );

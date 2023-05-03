@@ -4,9 +4,14 @@ import { IoMdAddCircle } from 'react-icons/io';
 import { useDebouncedValue } from '@mantine/hooks';
 import ApiCaller from '@/api';
 
-export const ManagerSeriesBoxComponent = () => {
-    const [title, setTitle] = useState<string>('');
-    const [summary, setSummary] = useState<string>('');
+interface ManagerSeriesBoxComponentProps {
+    value: string;
+    change: (v: string) => void;
+}
+
+export const ManagerSeriesBoxComponent = (props: ManagerSeriesBoxComponentProps) => {
+    const { value, change } = props;
+
     const [filterText, setFilterText] = useState<string>('');
     const [debounced] = useDebouncedValue(filterText, 300, { leading: true });
     const [series, setSeries] = useState<
@@ -22,7 +27,8 @@ export const ManagerSeriesBoxComponent = () => {
 
     useEffect(() => {
         ApiCaller.content.getAllSeries(series.length, 10).then((res) => {
-            setSeries(res.data);
+            const { data, max } = res.data;
+            setSeries(data);
         });
 
         return () => {
@@ -65,13 +71,15 @@ export const ManagerSeriesBoxComponent = () => {
             >
                 {series
                     .filter((s) => s.title.includes(debounced))
-                    .map((v) => (
+                    .map((item) => (
                         <TagsBoxItemComponent
-                            key={v._id}
-                            value={v}
+                            key={item._id}
+                            item={item}
+                            value={value}
+                            change={change}
                             ondelete={() => {
-                                ApiCaller.content.deleteSeries(v._id).then((res) => {
-                                    setSeries(series.filter((s) => s._id !== v._id));
+                                ApiCaller.content.deleteSeries(item._id).then((res) => {
+                                    setSeries(series.filter((s) => s._id !== item._id));
                                 });
                             }}
                         />

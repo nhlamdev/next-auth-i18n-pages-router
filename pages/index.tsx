@@ -1,11 +1,8 @@
 import { Stack } from '@mui/material';
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { HomeListContents, HomeTopContents } from '@/components/home-client';
 
-const HomePage: NextPage & {
-    layout?: string;
-} = () => {
+const HomePage = () => {
     return (
         <Stack direction="row" sx={{ width: '100%' }}>
             <Head>

@@ -18,7 +18,11 @@ export class ContentApi {
     }
     public getAllTag() {}
 
-    public createContent() {}
+    public createContent(data: any) {
+        return this.axiosInstance.post('/services/content', data, {
+            headers: { 'content-type': 'multipart/form-data' },
+        });
+    }
     public createSeries(title: string, summary: string) {
         return this.axiosInstance.post(`/services/series/`, { title: title, summary: summary });
     }
