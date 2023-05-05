@@ -8,6 +8,7 @@ import ApiInstance from '@/api';
 import { ManagerSeriesBoxComponent } from '@/components/new-content/categoris-box';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const TextEditor = dynamic(import('@/components/text-editor'), {
     ssr: false,
@@ -16,14 +17,13 @@ const TextEditor = dynamic(import('@/components/text-editor'), {
 const ContentNewPage: NextPage & {
     layout?: string;
 } = () => {
+    const router = useRouter();
     const fileRef = useRef<HTMLInputElement | null>(null);
     const [data, setData] = useState<{
         title: string;
         summary: string;
         body: string;
         series: string;
-        complete: boolean;
-        public: boolean;
         tags: string[];
         image: File | null;
     }>({
@@ -31,19 +31,41 @@ const ContentNewPage: NextPage & {
         summary: '',
         title: '',
         series: '',
-        complete: false,
-        public: false,
         image: null,
         tags: [],
     });
 
     useEffect(() => {}, []);
 
-    const submit = () => {
+    const submit = (complete: boolean) => {
         if (data.image) {
-            ApiInstance.content.createContent(data);
+            const payload = { ...data, ['complete']: complete };
+
+            ApiInstance.content.createContent(payload).then(() => {
+                setData({
+                    body: '',
+                    summary: '',
+                    title: '',
+                    series: '',
+                    image: null,
+                    tags: [],
+                });
+
+                router.replace('/');
+            });
         }
     };
+
+    useEffect(() => {
+        setData({
+            body: '',
+            summary: '',
+            title: '',
+            series: '',
+            image: null,
+            tags: [],
+        });
+    }, []);
 
     return (
         <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '20px', padding: '10px 20px' }}>
@@ -84,11 +106,6 @@ const ContentNewPage: NextPage & {
                     onChange={(e) => setData({ ...data, ['summary']: e.target.value })}
                 />
 
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Checkbox />
-                    <span style={{ fontSize: '14px' }}>Công khai</span>
-                </div>
-
                 <TextEditor
                     value={data.body}
                     height="500px"
@@ -103,7 +120,7 @@ const ContentNewPage: NextPage & {
                             borderRadius: '5px',
                             cursor: 'pointer',
                         }}
-                        onClick={() => submit()}
+                        onClick={() => submit(true)}
                     >
                         <span style={{ fontSize: '14px', fontWeight: 600 }}>Hoàn thành</span>
                     </Stack>
@@ -114,6 +131,7 @@ const ContentNewPage: NextPage & {
                             borderRadius: '5px',
                             cursor: 'pointer',
                         }}
+                        onClick={() => submit(false)}
                     >
                         <span style={{ fontSize: '14px', color: '#fff', fontWeight: 600 }}>
                             Lưu nháp

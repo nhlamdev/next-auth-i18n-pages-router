@@ -1,17 +1,27 @@
 import { Stack } from '@mui/material';
 import { ContentTableHeadComponent } from './head';
 import { TableContentRowComponent } from './row';
+import { IContent } from '@/interface';
 
 interface TableContentComponentProps {
-    caseView: 'draft' | 'public';
+    data: IContent[];
 }
 
 export const TableContentComponent = (props: TableContentComponentProps) => {
-    const { caseView } = props;
+    const { data } = props;
     return (
-        <Stack sx={{ width: '80%', padding: '10px' }}>
+        <Stack sx={{ width: '80%', padding: '10px', gap: '5px' }}>
             <ContentTableHeadComponent />
-            <TableContentRowComponent />
+
+            {data.map((c, index) => {
+                return (
+                    <TableContentRowComponent
+                        key={`content-item-${c._id}`}
+                        content={c}
+                        index={index}
+                    />
+                );
+            })}
         </Stack>
     );
 };

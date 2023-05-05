@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IContent } from '@/interface';
 
-const ContentsPage: NextPage & {
+const ContentsDraftPage: NextPage & {
     layout?: string;
 } = () => {
     const router = useRouter();
@@ -24,7 +24,7 @@ const ContentsPage: NextPage & {
 
     useEffect(() => {
         setLoading(true);
-        ApiCaller.content.getAllContent(current, 10).then((res) => {
+        ApiCaller.content.getAllContentDraft(current, 10).then((res) => {
             const { data, max } = res.data;
             setData(data);
             setMax(max);
@@ -52,7 +52,7 @@ const ContentsPage: NextPage & {
 
             <Pagination
                 onChange={(e, page) => {
-                    router.replace(`/content?page=${page}`);
+                    router.replace(`/content/draft?page=${page}`);
                 }}
                 count={Math.round(max / 10)}
                 defaultPage={current + 1}
@@ -63,5 +63,5 @@ const ContentsPage: NextPage & {
     );
 };
 
-ContentsPage.layout = 'client';
-export default ContentsPage;
+ContentsDraftPage.layout = 'client';
+export default ContentsDraftPage;

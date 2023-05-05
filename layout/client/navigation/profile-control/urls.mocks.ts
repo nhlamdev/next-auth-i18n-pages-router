@@ -13,6 +13,10 @@ export const Urls: UrlInterface[] = [
         name: 'Bài đăng',
     },
     {
+        direct: '/content/draft',
+        name: 'Bản nháp',
+    },
+    {
         direct: '/content/new',
         name: 'Viết bài',
     },

@@ -24,7 +24,7 @@ export const ContentTableHeadComponent = () => {
             </Stack>
             <Stack
                 sx={{
-                    width: '50%',
+                    width: '60%',
                     padding: '5px 10px',
                     border: '1px solid black',
                     borderRadius: '5px',
@@ -43,7 +43,7 @@ export const ContentTableHeadComponent = () => {
             </Stack>
             <Stack
                 sx={{
-                    width: '15%',
+                    width: '10%',
                     padding: '5px 10px',
                     border: '1px solid black',
                     borderRadius: '5px',
@@ -62,7 +62,7 @@ export const ContentTableHeadComponent = () => {
             </Stack>
             <Stack
                 sx={{
-                    width: '15%',
+                    width: '10%',
                     padding: '5px 10px',
                     border: '1px solid black',
                     borderRadius: '5px',
@@ -76,12 +76,12 @@ export const ContentTableHeadComponent = () => {
                         textAlign: 'center',
                     }}
                 >
-                    Lượt bình luận
+                    Bình luận
                 </Typography>
             </Stack>
             <Stack
                 sx={{
-                    width: '15%',
+                    width: '10%',
                     padding: '5px 10px',
                     border: '1px solid black',
                     borderRadius: '5px',

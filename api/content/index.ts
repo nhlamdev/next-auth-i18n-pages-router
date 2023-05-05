@@ -12,7 +12,13 @@ export class ContentApi {
         return ContentApi.instance;
     }
 
-    public getAllContent() {}
+    public getAllContent(current: number, limit: number) {
+        return this.axiosInstance.get(`/services/content/${current}/${limit}`);
+    }
+    public getAllContentDraft(current: number, limit: number) {
+        return this.axiosInstance.get(`/services/content/draft/${current}/${limit}`);
+    }
+
     public getAllSeries(current: number, limit: number) {
         return this.axiosInstance.get(`/services/series/${current}/${limit}`);
     }
