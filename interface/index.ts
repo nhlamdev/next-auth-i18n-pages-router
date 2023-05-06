@@ -21,7 +21,7 @@ export interface IContent {
     created_at: string;
     delete_at: string | null;
     image: string | null;
-    seiries: ISeries;
+    series: ISeries;
     summary: string;
     tags: ITag[];
     title: string;

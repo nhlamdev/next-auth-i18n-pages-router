@@ -23,14 +23,12 @@ const ContentNewPage: NextPage & {
         title: string;
         summary: string;
         body: string;
-        series: string;
         tags: string[];
         image: File | null;
     }>({
         body: '',
         summary: '',
         title: '',
-        series: '',
         image: null,
         tags: [],
     });
@@ -46,11 +44,9 @@ const ContentNewPage: NextPage & {
                     body: '',
                     summary: '',
                     title: '',
-                    series: '',
                     image: null,
                     tags: [],
                 });
-
                 router.replace('/');
             });
         }
@@ -61,7 +57,6 @@ const ContentNewPage: NextPage & {
             body: '',
             summary: '',
             title: '',
-            series: '',
             image: null,
             tags: [],
         });
@@ -157,14 +152,11 @@ const ContentNewPage: NextPage & {
                                 fileRef.current.click();
                             }
                         }}
-                        style={{
-                            cursor: 'pointer',
-                            borderRadius: '10px',
-                        }}
                         src={URL.createObjectURL(data.image)}
                         width={300}
                         height={200}
-                        alt="image"
+                        style={{ cursor: 'pointer', objectFit: 'cover', borderRadius: '5px' }}
+                        alt="photo"
                     />
                 ) : (
                     <Image
@@ -173,10 +165,7 @@ const ContentNewPage: NextPage & {
                                 fileRef.current.click();
                             }
                         }}
-                        style={{
-                            cursor: 'pointer',
-                            borderRadius: '10px',
-                        }}
+                        style={{ cursor: 'pointer', objectFit: 'cover', borderRadius: '5px' }}
                         src="http://via.placeholder.com/300x200"
                         width={300}
                         height={200}
@@ -205,7 +194,7 @@ const ContentNewPage: NextPage & {
                 />
 
                 {/* <Stack></Stack> */}
-                <ManagerSeriesBoxComponent
+                {/* <ManagerSeriesBoxComponent
                     value={data.series}
                     change={(v: string) => {
                         if (data.series === v) {
@@ -214,7 +203,7 @@ const ContentNewPage: NextPage & {
                             setData({ ...data, ['series']: v });
                         }
                     }}
-                />
+                /> */}
             </Stack>
         </Stack>
     );

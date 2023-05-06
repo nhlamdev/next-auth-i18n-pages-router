@@ -1,8 +1,18 @@
 import { Stack, Typography, useMediaQuery } from '@mui/material';
 import Image from 'next/image';
-export const ClientHomeListContentItem = () => {
+import { IContent } from '@/interface';
+import { getDateTime } from '@/util/global-func';
+import { useRouter } from 'next/router';
+
+interface ClientHomeListContentItemProps {
+    content: IContent;
+}
+
+export const ClientHomeListContentItem = (props: ClientHomeListContentItemProps) => {
+    const { content } = props;
     const matches = useMediaQuery('(min-width:900px)');
-    const tags = ['vue', 'react', 'javascript', 'python', 'django', 'typescript', 'c#', 'java'];
+    const router = useRouter();
+
     return (
         <Stack
             direction="row"
@@ -15,10 +25,13 @@ export const ClientHomeListContentItem = () => {
                     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                 },
             }}
+            onClick={() => {
+                router.replace(`/content/${content._id}`);
+            }}
         >
             <Stack style={{ position: 'relative' }}>
                 <Image
-                    src="/a_100421840_m_601_en_m1_1013_638.jpg"
+                    src={`/services/${content.image}`}
                     width={200 * (matches ? 1 : 0.8)}
                     height={150 * (matches ? 1 : 0.8)}
                     quality={75}
@@ -33,29 +46,32 @@ export const ClientHomeListContentItem = () => {
             <Stack justifyContent="space-between">
                 <Stack sx={{ gap: '5px' }}>
                     <Typography sx={{ fontWeight: 700, fontSize: matches ? '16px' : '14px' }}>
-                        lorem
+                        {content.title}
                     </Typography>
 
-                    <Typography sx={{ fontWeight: 300, fontSize: matches ? '14px' : '12px' }}>
-                        03/04/2023
+                    <Typography sx={{ fontWeight: 300, fontSize: matches ? '13px' : '11px' }}>
+                        {getDateTime(content.created_at)}
                     </Typography>
                 </Stack>
-
-                <Stack
-                    sx={{
-                        padding: '5px 10px',
-                        borderRadius: '5px',
-                        border: '2px solid black',
-                        width: 'fit-content',
-                    }}
-                >
-                    <Typography sx={{ fontSize: matches ? '12px' : '10px', fontWeight: 700 }}>
-                        Reactjs
-                    </Typography>
-                </Stack>
+                {content.series ? (
+                    <Stack
+                        sx={{
+                            padding: '5px 10px',
+                            borderRadius: '5px',
+                            border: '2px solid black',
+                            width: 'fit-content',
+                        }}
+                    >
+                        <Typography sx={{ fontSize: matches ? '12px' : '10px', fontWeight: 700 }}>
+                            {content.series?.title}
+                        </Typography>
+                    </Stack>
+                ) : (
+                    <></>
+                )}
 
                 <Stack direction="row" sx={{ flexWrap: 'wrap' }}>
-                    {tags.map((t) => (
+                    {content.tags.map((t) => (
                         <Stack
                             key={`tags-${t}`}
                             sx={{
@@ -67,7 +83,7 @@ export const ClientHomeListContentItem = () => {
                             justifyContent="center"
                         >
                             <Typography sx={{ fontSize: matches ? '12px' : '10px' }}>
-                                {t}
+                                {t.name}
                             </Typography>
                         </Stack>
                     ))}

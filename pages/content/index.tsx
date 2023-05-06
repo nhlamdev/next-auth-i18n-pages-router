@@ -24,7 +24,7 @@ const ContentsPage: NextPage & {
 
     useEffect(() => {
         setLoading(true);
-        ApiCaller.content.getAllContent(current, 10).then((res) => {
+        ApiCaller.content.getAllPublicContent(current, 10).then((res) => {
             const { data, max } = res.data;
             setData(data);
             setMax(max);

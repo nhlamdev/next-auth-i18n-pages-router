@@ -1,7 +1,33 @@
-import { Pagination, Stack, Typography } from '@mui/material';
-import { ClientHomeListContentItem } from './item';
+import ApiCaller from '@/api';
+import { IContent } from '@/interface';
+import { Pagination, Stack, TextField, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { BiSort } from 'react-icons/bi';
+import { ClientHomeListContentItem } from './item';
 export const HomeListContents = () => {
+    const router = useRouter();
+    const { page } = router.query;
+
+    const [data, setData] = useState<IContent[]>([]);
+    const [max, setMax] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const current =
+        page && !Number.isNaN(Number(page)) && Number.isInteger(Number(page))
+            ? Number(page) - 1
+            : 0;
+
+    useEffect(() => {
+        setLoading(true);
+        ApiCaller.content.getAllContent(current, 10).then((res) => {
+            const { data, max } = res.data;
+            setData(data);
+            setMax(max);
+            setLoading(false);
+        });
+    }, [current]);
+
     return (
         <Stack
             sx={{
@@ -16,34 +42,20 @@ export const HomeListContents = () => {
             }}
         >
             <Stack sx={{ width: '100%' }}>
-                <Stack
-                    direction="row"
-                    alignItems="center"
-                    sx={{
-                        padding: '10px 20px',
-                        // boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-                        width: 'fit-content',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                        gap: '10px',
-                        border: '1px solid #402E32',
-                    }}
-                >
-                    <BiSort style={{ fontSize: '20px' }} />
-                    <Typography sx={{ fontSize: '12px' }}>Sắp xếp</Typography>
-                </Stack>
+                <TextField fullWidth placeholder="Nhập bài viết mà bạn muốn tìm" />
             </Stack>
+
             <Stack sx={{ width: '100%' }}>
-                {Array.from({ length: 10 }, (_, i) => i + 1).map((v) => {
-                    return <ClientHomeListContentItem key={v} />;
+                {data.map((content) => {
+                    return <ClientHomeListContentItem key={content._id} content={content} />;
                 })}
             </Stack>
             <Pagination
                 onChange={(e, page) => {
-                    console.log(page);
+                    router.replace(`?page=${page}`);
                 }}
-                count={20}
-                defaultPage={1}
+                count={Math.round(max / 10)}
+                defaultPage={current + 1}
                 siblingCount={1}
                 variant="outlined"
             />

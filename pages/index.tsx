@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import Head from 'next/head';
 import { HomeListContents, HomeTopContents } from '@/components/home-client';
 
@@ -11,6 +11,7 @@ const HomePage = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
             <HomeListContents />
             <HomeTopContents />
         </Stack>

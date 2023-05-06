@@ -2,6 +2,7 @@ import { IContent } from '@/interface';
 import { FiEdit } from 'react-icons/fi';
 import { IconButton, Stack, Typography } from '@mui/material';
 import { MdOutlineRemoveCircle } from 'react-icons/md';
+import { useRouter } from 'next/router';
 
 interface TableContentRowComponentProps {
     content: IContent;
@@ -10,6 +11,7 @@ interface TableContentRowComponentProps {
 
 export const TableContentRowComponent = (props: TableContentRowComponentProps) => {
     const { content, index } = props;
+    const router = useRouter();
     return (
         <Stack sx={{ gap: '2px' }} direction="row">
             <Stack

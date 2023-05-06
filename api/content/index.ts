@@ -15,6 +15,9 @@ export class ContentApi {
     public getAllContent(current: number, limit: number) {
         return this.axiosInstance.get(`/services/content/${current}/${limit}`);
     }
+    public getAllPublicContent(current: number, limit: number) {
+        return this.axiosInstance.get(`/services/content/public/${current}/${limit}`);
+    }
     public getAllContentDraft(current: number, limit: number) {
         return this.axiosInstance.get(`/services/content/draft/${current}/${limit}`);
     }
@@ -22,6 +25,11 @@ export class ContentApi {
     public getAllSeries(current: number, limit: number) {
         return this.axiosInstance.get(`/services/series/${current}/${limit}`);
     }
+
+    public getContentByID(id: string) {
+        return this.axiosInstance.get(`/services/content/${id}`);
+    }
+
     public getAllTag() {}
 
     public createContent(data: any) {
