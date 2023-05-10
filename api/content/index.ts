@@ -12,8 +12,12 @@ export class ContentApi {
         return ContentApi.instance;
     }
 
-    public getAllContent(current: number, limit: number) {
-        return this.axiosInstance.get(`/services/content/${current}/${limit}`);
+    public getAllContent(current: number, limit: number, search?: string) {
+        if (search) {
+            return this.axiosInstance.get(`/services/content/${current}/${limit}?search=${search}`);
+        } else {
+            return this.axiosInstance.get(`/services/content/${current}/${limit}`);
+        }
     }
     public getAllPublicContent(current: number, limit: number) {
         return this.axiosInstance.get(`/services/content/public/${current}/${limit}`);

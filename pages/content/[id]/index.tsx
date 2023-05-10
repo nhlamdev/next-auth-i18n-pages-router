@@ -4,6 +4,7 @@ import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { ClientCommentComponent } from '@/components/comment';
 interface ContentDetailPageProps {
     data: IContent;
     notFound: boolean;
@@ -55,7 +56,8 @@ const ContentDetailPage = (props: ContentDetailPageProps) => {
                 />
             </Stack>
 
-            <Stack dangerouslySetInnerHTML={{ __html: data.body }} />
+            <Stack sx={{ minHeight: '300px' }} dangerouslySetInnerHTML={{ __html: data.body }} />
+
             <Stack direction="row" sx={{ justifyContent: 'space-between', gap: '10px' }}>
                 {Array.from({ length: 4 }, (_, i) => i + 1).map((v) => {
                     return (
@@ -118,6 +120,8 @@ const ContentDetailPage = (props: ContentDetailPageProps) => {
                     );
                 })}
             </Stack>
+
+            <ClientCommentComponent />
         </Stack>
     );
 };

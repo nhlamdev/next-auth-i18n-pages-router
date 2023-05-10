@@ -3,7 +3,7 @@ import { IContent } from '@/interface';
 import { Pagination, Stack, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { BiSort } from 'react-icons/bi';
+import { useDebouncedState } from '@mantine/hooks';
 import { ClientHomeListContentItem } from './item';
 export const HomeListContents = () => {
     const router = useRouter();
@@ -11,6 +11,7 @@ export const HomeListContents = () => {
 
     const [data, setData] = useState<IContent[]>([]);
     const [max, setMax] = useState<number>(0);
+    const [search, setSearch] = useDebouncedState<string>('', 500);
     const [loading, setLoading] = useState<boolean>(false);
 
     const current =
@@ -20,13 +21,22 @@ export const HomeListContents = () => {
 
     useEffect(() => {
         setLoading(true);
-        ApiCaller.content.getAllContent(current, 10).then((res) => {
-            const { data, max } = res.data;
-            setData(data);
-            setMax(max);
-            setLoading(false);
-        });
-    }, [current]);
+        if (search && search !== '') {
+            ApiCaller.content.getAllContent(current, 10, search).then((res) => {
+                const { data, max } = res.data;
+                setData(data);
+                setMax(max);
+                setLoading(false);
+            });
+        } else {
+            ApiCaller.content.getAllContent(current, 10).then((res) => {
+                const { data, max } = res.data;
+                setData(data);
+                setMax(max);
+                setLoading(false);
+            });
+        }
+    }, [current, search]);
 
     return (
         <Stack
@@ -41,8 +51,15 @@ export const HomeListContents = () => {
                 alignItems: 'center',
             }}
         >
-            <Stack sx={{ width: '100%' }}>
-                <TextField fullWidth placeholder="Nhập bài viết mà bạn muốn tìm" />
+            <Stack sx={{ padding: '10px', width: '90%' }}>
+                <TextField
+                    fullWidth
+                    placeholder="Nhập bài viết mà bạn muốn tìm"
+                    onChange={(e) => {
+                        const { value } = e.target;
+                        setSearch(value);
+                    }}
+                />
             </Stack>
 
             <Stack sx={{ width: '100%' }}>
