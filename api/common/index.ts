@@ -1,13 +1,5 @@
-export class CommonApi {
-    private static instance: CommonApi;
-    constructor() {}
-    public static getInstance(): CommonApi {
-        if (!CommonApi.instance) {
-            CommonApi.instance = new CommonApi();
-        }
+import axiosInstance from '@/api/axios-custom';
 
-        return CommonApi.instance;
-    }
-
-    public async getAllMemberLogin() {}
-}
+export const commonApi = {
+    roles() {},
+};

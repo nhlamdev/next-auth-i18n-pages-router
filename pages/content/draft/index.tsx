@@ -24,12 +24,14 @@ const ContentsDraftPage: NextPage & {
 
     useEffect(() => {
         setLoading(true);
-        ApiCaller.content.getAllContentDraft(current, 10).then((res) => {
-            const { data, max } = res.data;
-            setData(data);
-            setMax(max);
-            setLoading(false);
-        });
+        ApiCaller.content
+            .getContents({ current: current, limit: 10, complete: 'false' })
+            .then((res) => {
+                const { data, max } = res.data;
+                setData(data);
+                setMax(max);
+                setLoading(false);
+            });
     }, [current]);
 
     return (

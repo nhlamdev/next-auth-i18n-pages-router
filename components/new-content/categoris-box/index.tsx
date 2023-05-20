@@ -26,7 +26,7 @@ export const ManagerSeriesBoxComponent = (props: ManagerSeriesBoxComponentProps)
     >([]);
 
     useEffect(() => {
-        ApiCaller.content.getAllSeries(series.length, 10).then((res) => {
+        ApiCaller.series.getSeries(series.length, 10).then((res) => {
             const { data, max } = res.data;
             setSeries(data);
         });
@@ -78,7 +78,7 @@ export const ManagerSeriesBoxComponent = (props: ManagerSeriesBoxComponentProps)
                             value={value}
                             change={change}
                             ondelete={() => {
-                                ApiCaller.content.deleteSeries(item._id).then((res) => {
+                                ApiCaller.series.deleteSeries(item._id).then((res) => {
                                     setSeries(series.filter((s) => s._id !== item._id));
                                 });
                             }}

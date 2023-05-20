@@ -125,7 +125,7 @@ export const CreateSeiresDialog = (props: CreateSeiresDialogProps) => {
                         <Button
                             onClick={() => {
                                 if (title && summary) {
-                                    ApiCaller.content.createSeries(title, summary).then((res) => {
+                                    ApiCaller.series.createSeries(title, summary).then((res) => {
                                         addSeries(res.data);
                                         setTitle('');
                                         setSummary('');

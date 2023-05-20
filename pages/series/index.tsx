@@ -32,7 +32,7 @@ const ContentSeriesPage: NextPage & {
 
     useEffect(() => {
         setLoading(true);
-        ApiCaller.content.getAllSeries(current, 10).then((res) => {
+        ApiCaller.series.getSeries(current, 0).then((res) => {
             const { data, max } = res.data;
             setSeries(data);
             setMax(max);

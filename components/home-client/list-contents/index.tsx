@@ -22,14 +22,14 @@ export const HomeListContents = () => {
     useEffect(() => {
         setLoading(true);
         if (search && search !== '') {
-            ApiCaller.content.getAllContent(current, 10, search).then((res) => {
+            ApiCaller.content.getContents({ current: 0, limit: 10, search: search }).then((res) => {
                 const { data, max } = res.data;
                 setData(data);
                 setMax(max);
                 setLoading(false);
             });
         } else {
-            ApiCaller.content.getAllContent(current, 10).then((res) => {
+            ApiCaller.content.getContents({ current: 0, limit: 10 }).then((res) => {
                 const { data, max } = res.data;
                 setData(data);
                 setMax(max);

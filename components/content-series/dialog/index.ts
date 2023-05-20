@@ -1,2 +1,2 @@
-export * from './add-content';
+export * from './control-content';
 export * from './create-sesries';

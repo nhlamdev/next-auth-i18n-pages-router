@@ -24,12 +24,14 @@ const ContentsPage: NextPage & {
 
     useEffect(() => {
         setLoading(true);
-        ApiCaller.content.getAllPublicContent(current, 10).then((res) => {
-            const { data, max } = res.data;
-            setData(data);
-            setMax(max);
-            setLoading(false);
-        });
+        ApiCaller.content
+            .getContents({ current: current, limit: 10, complete: 'true' })
+            .then((res) => {
+                const { data, max } = res.data;
+                setData(data);
+                setMax(max);
+                setLoading(false);
+            });
     }, [current]);
 
     return (
